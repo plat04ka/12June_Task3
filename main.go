@@ -11,49 +11,14 @@ func main() {
 }
 
 func digitsPlusOne(d []int) []int {
-	k := 0
-	var copyD = d
+	for i := len(d) - 1; i >= 0; i-- {
 
-	for i := 1; len(copyD) > 0; {
-		k++
-		copyD = copyD[i:]
+		if d[i] < 9 {
+			d[i]++
+			return d
+		}
+		d[i] = 0
 	}
 
-	powerTen := 1
-
-	for i := 0; i < k-1; i++ {
-		powerTen *= 10
-	}
-
-	number := 0
-
-	for i := 0; i < len(d); i++ {
-		number += d[i] * powerTen
-		powerTen /= 10
-	}
-
-	number++
-	nNumber := number
-	newK := 0
-
-	for nNumber > 0 {
-		newK++
-		nNumber /= 10
-	}
-
-	powerTen = 1
-
-	for i := 0; i < newK-1; i++ {
-		powerTen *= 10
-	}
-
-	var result []int
-
-	for i := 0; i < newK; i++ {
-		result = append(result, number/powerTen)
-		number -= powerTen * (number / powerTen)
-		powerTen /= 10
-	}
-
-	return result
+	return append([]int{1}, d...)
 }
